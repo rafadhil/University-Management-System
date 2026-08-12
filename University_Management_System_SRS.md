@@ -39,7 +39,6 @@ Responsible for configuring and maintaining the entire university.
 -   Drop courses
 -   View grades
 -   View attendance
--   Pay tuition
 -   View announcements
 -   Download transcripts
 -   Update personal information
@@ -60,14 +59,6 @@ Responsible for configuring and maintaining the entire university.
 -   Assign instructors
 -   Review department reports
 -   View student statistics
-
-### Finance Officer
-
--   View tuition balances
--   Record payments
--   Generate invoices
--   Refund payments
--   Produce financial reports
 
 ------------------------------------------------------------------------
 
@@ -116,20 +107,16 @@ Users can request a reset link and securely reset their password.
 -   GPA Calculation
 -   Timetable
 -   Announcements
--   File Uploads
--   Tuition Management
 -   Transcript Generation
 -   Reports
 -   Dashboards
 -   Search
 -   Notifications
--   Audit Logging
 
 ### Business Rules
 
 -   One active semester at a time.
 -   Unique course codes.
--   Credits between 1 and 6.
 -   No timetable conflicts.
 -   Registration requires prerequisites.
 -   Registration must be within the allowed period.
