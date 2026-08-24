@@ -1,6 +1,5 @@
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/appsettings.Development.json
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/appsettings.json
-/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/UniversityManagement.staticwebassets.runtime.json
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/UniversityManagement.staticwebassets.endpoints.json
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/UniversityManagement
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/UniversityManagement.deps.json
@@ -36,9 +35,13 @@
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.OpenApi.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.SqlServer.Server.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.Win32.SystemEvents.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Mono.TextTemplating.dll
+/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/System.ClientModel.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/System.CodeDom.dll
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/System.Composition.AttributedModel.dll
@@ -124,6 +127,7 @@
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.AssemblyInfoInputs.cache
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.AssemblyInfo.cs
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.csproj.CoreCompileInputs.cache
+/Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.MvcApplicationPartsAssemblyInfo.cs
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.MvcApplicationPartsAssemblyInfo.cache
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.sourcelink.json
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/rjimswa.dswa.cache.json
@@ -141,8 +145,3 @@
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.pdb
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.genruntimeconfig.cache
 /Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/ref/UniversityManagement.dll
-/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Microsoft.OpenApi.dll
-/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
-/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
-/Users/rayan/Desktop/University-Management-System/UniversityManagement/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
-/Users/rayan/Desktop/University-Management-System/UniversityManagement/obj/Debug/net8.0/UniversityManagement.MvcApplicationPartsAssemblyInfo.cs

@@ -63,7 +63,9 @@ public partial class UniversityDbContext : DbContext
             entity.HasIndex(e => e.BuildingId, "IX_Classroom_BuildingId");
 
             entity.Property(e => e.Number).HasMaxLength(20);
-            entity.Property(e => e.Type).HasMaxLength(50);
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .HasConversion<string>();
 
             entity.HasOne(d => d.Building).WithMany(p => p.Classrooms)
                 .HasForeignKey(d => d.BuildingId)
@@ -83,7 +85,9 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Name).HasMaxLength(150);
-            entity.Property(e => e.Type).HasMaxLength(50);
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .HasConversion<string>();
 
             entity.HasOne(d => d.Department).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.DepartmentId)
@@ -164,7 +168,8 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.DayOfWeek)
                 .HasMaxLength(3)
                 .IsUnicode(false)
-                .IsFixedLength();
+                .IsFixedLength()
+                .HasConversion<string>();
 
             entity.HasOne(d => d.Classroom).WithMany(p => p.CourseOfferingSchedules)
                 .HasForeignKey(d => d.ClassroomId)
@@ -176,6 +181,8 @@ public partial class UniversityDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_CourseOfferingSchedule_CourseOffering");
         });
+
+
 
         modelBuilder.Entity<CoursePrerequisite>(entity =>
         {
@@ -251,7 +258,9 @@ public partial class UniversityDbContext : DbContext
 
             entity.HasIndex(e => e.NationalId, "UQ_FacultyMember_NationalId").IsUnique();
 
-            entity.Property(e => e.AcademicRank).HasMaxLength(50);
+            entity.Property(e => e.AcademicRank)
+                .HasMaxLength(50)
+                .HasConversion<string>();
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.EmployeeId).HasDefaultValueSql("(NEXT VALUE FOR [FacultyEmployeeIdSequence])");
             entity.Property(e => e.FirstName).HasMaxLength(100);
@@ -259,7 +268,9 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.NationalId).HasMaxLength(20);
             entity.Property(e => e.PhoneNumber).HasMaxLength(30);
             entity.Property(e => e.SecondName).HasMaxLength(100);
-            entity.Property(e => e.Status).HasMaxLength(50);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasConversion<string>(); ;
             entity.Property(e => e.ThirdName).HasMaxLength(100);
 
             entity.HasOne(d => d.Department).WithMany(p => p.FacultyMembers)
@@ -281,7 +292,9 @@ public partial class UniversityDbContext : DbContext
             entity.HasIndex(e => e.Code, "UQ_Major_Code").IsUnique();
 
             entity.Property(e => e.Code).HasMaxLength(20);
-            entity.Property(e => e.DegreeType).HasMaxLength(50);
+            entity.Property(e => e.DegreeType)
+                .HasMaxLength(50)
+                .HasConversion<string>();
             entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.Name).HasMaxLength(100);
@@ -330,7 +343,8 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.SecondName).HasMaxLength(100);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
-                .HasDefaultValue("Active");
+                .HasDefaultValue(StudentStatus.Active)
+                .HasConversion<string>();
             entity.Property(e => e.ThirdName).HasMaxLength(100);
             entity.Property(e => e.UniversityId).HasDefaultValueSql("(NEXT VALUE FOR [StudentUniversityIdSequence])");
 
@@ -377,6 +391,7 @@ public partial class UniversityDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UserRole_User");
         });
+
         modelBuilder.HasSequence<int>("FacultyEmployeeIdSequence").StartsAt(50000L);
         modelBuilder.HasSequence<int>("StudentUniversityIdSequence").StartsAt(10000L);
 

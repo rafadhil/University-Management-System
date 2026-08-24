@@ -17,7 +17,7 @@ public partial class Course
 
     public int DepartmentId { get; set; }
 
-    public string Type { get; set; } = null!;
+    public CourseType Type { get; set; }
 
     public bool IsActive { get; set; }
 

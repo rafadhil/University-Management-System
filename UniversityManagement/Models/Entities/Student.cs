@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace UniversityManagement.Models;
 
-public partial class FacultyMember
+public partial class Student
 {
     public int Id { get; set; }
 
-    public int EmployeeId { get; set; }
+    public int UniversityId { get; set; }
 
     public string FirstName { get; set; } = null!;
 
@@ -25,21 +25,17 @@ public partial class FacultyMember
 
     public string PhoneNumber { get; set; } = null!;
 
-    public string Status { get; set; } = null!;
+    public StudentStatus Status { get; set; }
 
-    public int DepartmentId { get; set; }
+    public int MajorId { get; set; }
 
-    public string AcademicRank { get; set; } = null!;
+    public DateOnly AdmissionDate { get; set; }
 
     public int? UserId { get; set; }
 
-    public DateOnly HireDate { get; set; }
+    public virtual ICollection<CourseEnrollment> CourseEnrollments { get; set; } = new List<CourseEnrollment>();
 
-    public virtual ICollection<CourseOfferingInstructor> CourseOfferingInstructors { get; set; } = new List<CourseOfferingInstructor>();
-
-    public virtual Department Department { get; set; } = null!;
-
-    public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
+    public virtual Major Major { get; set; } = null!;
 
     public virtual User? User { get; set; }
 }

@@ -19,7 +19,7 @@ public partial class Major
 
     public bool IsActive { get; set; }
 
-    public string DegreeType { get; set; } = null!;
+    public DegreeType DegreeType { get; set; }
 
     public virtual Department Department { get; set; } = null!;
 

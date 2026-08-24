@@ -11,7 +11,7 @@ public partial class Classroom
 
     public int BuildingId { get; set; }
 
-    public string Type { get; set; } = null!;
+    public ClassroomType Type { get; set; }
 
     public int FloorNumber { get; set; }
 

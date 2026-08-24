@@ -9,7 +9,7 @@ public partial class CourseOfferingSchedule
 
     public int CourseOfferingId { get; set; }
 
-    public string DayOfWeek { get; set; } = null!;
+    public DayOfWeek DayOfWeek { get; set; }
 
     public TimeOnly StartTime { get; set; }
 
