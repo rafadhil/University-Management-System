@@ -15,6 +15,11 @@ public class StudentsController : ControllerBase
     [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<StudentDto>>> GetAll(int pageSize = 50, int pageNumber = 1)
     {
+        if (pageSize < 1 || pageNumber < 1)
+        {
+            return BadRequest("Page size and page number must be greater than 0.");
+        }
+
         return Ok(await _studentService.GetAll(pageSize, pageNumber));
     }
 
@@ -64,15 +69,26 @@ public class StudentsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<StudentDto>> CreateStudent(CreateStudentDto dto)
     {
-        var (student, error) = await _studentService.CreateStudentAsync(dto);
+        var (student, result) = await _studentService.CreateStudentAsync(dto);
 
-        if (error != null)
-            return Conflict(new { message = error });
+        if (result == StudentResult.EmailAlreadyExists)
+            return Conflict(new { message = "Student with provided Email already exists." });
 
-        return CreatedAtAction(
-            nameof(GetStudentById),
-            new { id = student!.Id },
-            student.ToDto());
+        if (result == StudentResult.MajorNotFound)
+            return Conflict(new { message = "Major with provided Id does not exist." });
+
+        if (result == StudentResult.NationalIdAlreadyExists)
+            return Conflict(new { message = "Student with provided National Id already exists." });
+
+        if (result == StudentResult.Success)
+        {
+            return CreatedAtAction(
+                nameof(GetStudentById),
+                new { id = student!.Id },
+                student.ToDto());
+        }
+
+        return Problem();
     }
 
     [HttpPatch("{id:int}")]

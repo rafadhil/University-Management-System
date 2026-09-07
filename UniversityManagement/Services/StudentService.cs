@@ -1,4 +1,3 @@
-using Azure;
 using Microsoft.EntityFrameworkCore;
 using UniversityManagement.Data;
 using UniversityManagement.Models;
@@ -55,31 +54,28 @@ public class StudentService
             .FirstOrDefaultAsync(s => s.NationalId == id);
     }
 
-    public async Task<(Student? Student, string? Error)> CreateStudentAsync(CreateStudentDto dto)
+    public async Task<(Student? Student, StudentResult Result)> CreateStudentAsync(CreateStudentDto dto)
     {
         var existingStudent = await _context.Students
             .FirstOrDefaultAsync(s =>
                 s.Email == dto.Email ||
-                s.NationalId == dto.NationalId ||
-                s.PhoneNumber == dto.PhoneNumber);
+                s.NationalId == dto.NationalId);
 
         if (existingStudent != null)
         {
             if (existingStudent.Email == dto.Email)
-                return (null, "Student with Email already exists.");
+                return (null, StudentResult.EmailAlreadyExists);
 
             if (existingStudent.NationalId == dto.NationalId)
-                return (null, "Student with National ID already exists.");
+                return (null, StudentResult.NationalIdAlreadyExists);
 
-            if (existingStudent.PhoneNumber == dto.PhoneNumber)
-                return (null, "Student with Phone number already exists.");
         }
 
         var major = await _context.Majors
         .FirstOrDefaultAsync(m => m.Id == dto.MajorId);
 
         if (major == null)
-            return (null, "Major with provided Id does not exist.");
+            return (null, StudentResult.MajorNotFound);
 
         var student = new Student
         {
@@ -101,7 +97,7 @@ public class StudentService
         await _context.Students.AddAsync(student);
         await _context.SaveChangesAsync();
 
-        return (student, null);
+        return (student, StudentResult.Success);
     }
 
     public async Task<StudentResult> UpdateStudentAsync(int studentId, AdminUpdateStudentDto dto)

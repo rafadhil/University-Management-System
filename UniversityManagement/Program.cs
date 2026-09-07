@@ -20,6 +20,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     });
 
 builder.Services.AddScoped<StudentService>();
+builder.Services.AddScoped<FacultyMemberService>();
 
 var app = builder.Build();
 

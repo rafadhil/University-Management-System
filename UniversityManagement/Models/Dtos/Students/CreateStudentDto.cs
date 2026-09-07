@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using UniversityManagement.Models;
 
 public class CreateStudentDto
 {

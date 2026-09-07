@@ -270,7 +270,7 @@ public partial class UniversityDbContext : DbContext
             entity.Property(e => e.SecondName).HasMaxLength(100);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
-                .HasConversion<string>(); ;
+                .HasConversion<string>();
             entity.Property(e => e.ThirdName).HasMaxLength(100);
 
             entity.HasOne(d => d.Department).WithMany(p => p.FacultyMembers)
