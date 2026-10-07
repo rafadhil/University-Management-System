@@ -1,4 +1,5 @@
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UniversityAPI.Data;
@@ -19,20 +20,28 @@ public class UserService
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<(UserResult, int? id)> CreateAsync(User user)
+    public async Task<(UserResult, int? id)> CreateAsync(CreateUserDto dto)
     {
-        user.Email = user.Email.Trim().ToLowerInvariant();
-        user.Username = user.Username.Trim().ToLowerInvariant();
+        dto.Email = dto.Email.Trim().ToLowerInvariant();
+        dto.Username = dto.Username.Trim().ToLowerInvariant();
 
-        if (await _context.Users.AnyAsync(u => u.Email == user.Email))
+        if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
         {
             return (UserResult.UserWithEmailAlreadyExists, null);
         }
 
-        if (await _context.Users.AnyAsync(u => u.Username == user.Username))
+        if (await _context.Users.AnyAsync(u => u.Username == dto.Username))
         {
             return (UserResult.UserWithUsernameAlreadyExists, null);
         }
+
+        User user = new User
+        {
+            Username = dto.Username,
+            Email = dto.Email,
+            Password = dto.Password,
+            IsActive = dto.IsActive,
+        };
 
         user.Password = _passwordHasher.HashPassword(
             user,
@@ -44,10 +53,18 @@ public class UserService
         return (UserResult.Success, user.Id);
     }
 
-    public async Task<List<User>> GetAllAsync()
+    public async Task<List<UserDto>> GetAllAsync()
     {
         return await _context.Users
             .AsNoTracking()
+            .Select(u => new UserDto
+            {
+                Id = u.Id,
+                Email = u.Email,
+                CreatedAt = u.CreatedAt,
+                IsActive = u.IsActive,
+                Username = u.Username
+            })
             .ToListAsync();
     }
 

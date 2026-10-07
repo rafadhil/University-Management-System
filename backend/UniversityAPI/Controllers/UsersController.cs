@@ -16,7 +16,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(User user)
+    public async Task<ActionResult> Create(CreateUserDto user)
     {
         var (result, id) = await _userService.CreateAsync(user);
 
@@ -37,14 +37,14 @@ public class UsersController : ControllerBase
         };
     }
 
-    [HttpGet]
-    public async Task<ActionResult<List<User>>> GetAll()
+    [HttpGet("all")]
+    public async Task<ActionResult<List<UserDto>>> GetAll()
     {
         return Ok(await _userService.GetAllAsync());
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<User>> GetById(int id)
+    public async Task<ActionResult<UserDto>> GetById(int id)
     {
         var user = await _userService.GetByIdAsync(id);
 
@@ -53,33 +53,49 @@ public class UsersController : ControllerBase
             return NotFound("User not found.");
         }
 
-        return Ok(user);
+        return Ok(new UserDto
+        {
+            Id = user.Id,
+            CreatedAt = user.CreatedAt,
+            Email = user.Email,
+            IsActive = user.IsActive,
+            Username = user.Username
+        });
     }
 
-    [HttpGet("username/{username}")]
-    public async Task<ActionResult<User>> GetByUsername(string username)
+    [HttpGet]
+    public async Task<ActionResult<UserDto>> Get(
+    string? username,
+    string? email)
     {
-        var user = await _userService.GetByUsernameAsync(username);
+        User? user;
+
+        if (!string.IsNullOrWhiteSpace(username))
+        {
+            user = await _userService.GetByUsernameAsync(username);
+        }
+        else if (!string.IsNullOrWhiteSpace(email))
+        {
+            user = await _userService.GetByEmailAsync(email);
+        }
+        else
+        {
+            return BadRequest("Provide a username or email.");
+        }
 
         if (user == null)
         {
             return NotFound("User not found.");
         }
 
-        return Ok(user);
-    }
-
-    [HttpGet("email/{email}")]
-    public async Task<ActionResult<User>> GetByEmail(string email)
-    {
-        var user = await _userService.GetByEmailAsync(email);
-
-        if (user == null)
+        return Ok(new UserDto
         {
-            return NotFound("User not found.");
-        }
-
-        return Ok(user);
+            Id = user.Id,
+            CreatedAt = user.CreatedAt,
+            Email = user.Email,
+            IsActive = user.IsActive,
+            Username = user.Username
+        });
     }
 
     [HttpPatch("{id:int}")]
