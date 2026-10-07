@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UniversityAPI.Data;
+using UniversityAPI.Models;
+using UniversityAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +24,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<FacultyMemberService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 var app = builder.Build();
 

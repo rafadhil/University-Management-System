@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rayan/Desktop/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj": {}
+    "/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj": {}
   },
   "projects": {
-    "/Users/rayan/Desktop/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj": {
+    "/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rayan/Desktop/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj",
+        "projectUniqueName": "/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj",
         "projectName": "UniversityAPI",
-        "projectPath": "/Users/rayan/Desktop/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj",
+        "projectPath": "/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj",
         "packagesPath": "/Users/rayan/.nuget/packages/",
-        "outputPath": "/Users/rayan/Desktop/University-Management-System/backend/UniversityAPI/obj/",
+        "outputPath": "/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/rayan/.nuget/NuGet/NuGet.Config"

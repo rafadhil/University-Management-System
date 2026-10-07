@@ -65,6 +65,31 @@ public class FacultyMemberService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<FacultyMemberDto?> GetByNationalIdAsync(string nationalId)
+    {
+        return await _context.FacultyMembers
+            .AsNoTracking()
+            .Where(f => f.NationalId == nationalId)
+            .Select(f => new FacultyMemberDto
+            {
+                Id = f.Id,
+                EmployeeId = f.EmployeeId,
+
+                FullName = $"{f.FirstName} {f.SecondName} {f.ThirdName} {f.LastName}",
+
+                NationalId = f.NationalId,
+                Email = f.Email,
+                PhoneNumber = f.PhoneNumber,
+
+                AcademicRank = f.AcademicRank,
+                Status = f.Status,
+
+                DepartmentId = f.DepartmentId,
+                UserId = f.UserId
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<FacultyMemberDto?> GetByEmployeeIdAsync(int employeeId)
     {
         return await _context.FacultyMembers

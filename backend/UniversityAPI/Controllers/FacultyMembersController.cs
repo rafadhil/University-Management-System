@@ -41,12 +41,27 @@ public class FacultyMembersController : ControllerBase
         return Ok(facultyMember);
     }
 
-    // GET: api/facultyMembers/employee/50000
     [HttpGet]
-    public async Task<ActionResult<FacultyMemberDto>> GetByEmployeeId(
-        int employeeId)
+    public async Task<ActionResult<FacultyMemberDto>> GetFacultyMember(
+        int? employeeId,
+        string? nationalId)
     {
-        var facultyMember = await _service.GetByEmployeeIdAsync(employeeId);
+        FacultyMemberDto? facultyMember;
+
+        if (employeeId.HasValue)
+        {
+            facultyMember = await _service.GetByEmployeeIdAsync(employeeId.Value);
+        }
+
+        else if (!string.IsNullOrEmpty(nationalId))
+        {
+            facultyMember = await _service.GetByNationalIdAsync(nationalId);
+        }
+
+        else
+        {
+            return BadRequest("Provide either an Employee Id or a National Number");
+        }
 
         if (facultyMember == null)
         {

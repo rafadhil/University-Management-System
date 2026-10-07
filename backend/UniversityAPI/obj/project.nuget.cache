@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vIRwkv/iVwo=",
+  "dgSpecHash": "/ZcLvBsK/Rk=",
   "success": true,
-  "projectFilePath": "/Users/rayan/Desktop/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj",
+  "projectFilePath": "/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/UniversityAPI.csproj",
   "expectedPackageFiles": [
     "/Users/rayan/.nuget/packages/azure.core/1.41.0/azure.core.1.41.0.nupkg.sha512",
     "/Users/rayan/.nuget/packages/azure.identity/1.12.1/azure.identity.1.12.1.nupkg.sha512",
