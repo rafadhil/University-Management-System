@@ -318,7 +318,9 @@ public partial class UniversityDbContext : DbContext
         {
             entity.ToTable("Semester");
 
-            entity.Property(e => e.Term).HasMaxLength(50);
+            entity.Property(e => e.Term)
+                .HasMaxLength(50)
+                .HasConversion<string>();
         });
 
         modelBuilder.Entity<Student>(entity =>
