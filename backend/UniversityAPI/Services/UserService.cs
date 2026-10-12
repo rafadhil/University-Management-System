@@ -53,10 +53,12 @@ public class UserService
         return (UserResult.Success, user.Id);
     }
 
-    public async Task<List<UserDto>> GetAllAsync()
+    public async Task<List<UserDto>> GetAllAsync(int pageSize = 50, int pageNumber = 1)
     {
         return await _context.Users
             .AsNoTracking()
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .Select(u => new UserDto
             {
                 Id = u.Id,

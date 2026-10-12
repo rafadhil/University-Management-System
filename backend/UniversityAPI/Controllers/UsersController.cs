@@ -38,9 +38,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<List<UserDto>>> GetAll()
+    public async Task<ActionResult<List<UserDto>>> GetAll(int pageSize = 50, int pageNumber = 1)
     {
-        return Ok(await _userService.GetAllAsync());
+        return Ok(await _userService.GetAllAsync(pageSize, pageNumber));
     }
 
     [HttpGet("{id:int}")]

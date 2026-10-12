@@ -25,6 +25,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddScoped<StudentService>();
 builder.Services.AddScoped<FacultyMemberService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<SemesterService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 var app = builder.Build();
