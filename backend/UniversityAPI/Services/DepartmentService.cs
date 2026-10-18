@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using UniversityAPI.Data;
 using UniversityAPI.Models;
@@ -49,45 +48,111 @@ public class DepartmentService
         if (codeExists)
             return (DepartmentResult.DepartmentWithCodeAlreadyExists, null);
 
+        bool emailExists = await _context.Departments
+            .AnyAsync(d => d.Email == department.Email);
+
+        if (emailExists)
+            return (DepartmentResult.DepartmentWithEmailAlreadyExists, null);
+
         _context.Departments.Add(department);
         await _context.SaveChangesAsync();
 
         return (DepartmentResult.Success, department.Id);
     }
 
-    public async Task<Department?> UpdateAsync(
-        int id,
-        Department updatedDepartment)
+    public async Task<DepartmentResult> UpdateAsync(
+        int departmentId,
+        UpdateDepartmentDto updatedDepartment)
     {
         var department = await _context.Departments
-            .FindAsync(id);
+            .FindAsync(departmentId);
 
-        if (department is null)
-            return null;
+        if (department == null)
+            return DepartmentResult.DepartmentNotFound;
 
-        updatedDepartment.Name = updatedDepartment.Name.Trim();
         updatedDepartment.Code =
-            updatedDepartment.Code.Trim().ToUpperInvariant();
+            updatedDepartment.Code?.Trim().ToUpperInvariant();
 
-        bool codeExists = await _context.Departments
-            .AnyAsync(d =>
-                d.Code == updatedDepartment.Code &&
-                d.Id != id);
+        updatedDepartment.Name =
+            updatedDepartment.Name?.Trim();
 
-        if (codeExists)
-            return null;
+        updatedDepartment.Email =
+        updatedDepartment.Email?.Trim();
 
-        department.Name = updatedDepartment.Name;
-        department.Code = updatedDepartment.Code;
-        department.FacultyId = updatedDepartment.FacultyId;
-        department.Description = updatedDepartment.Description?.Trim();
-        department.DepartmentHeadId = updatedDepartment.DepartmentHeadId;
-        department.Email = updatedDepartment.Email?.Trim();
-        department.IsActive = updatedDepartment.IsActive;
+        updatedDepartment.Description =
+            updatedDepartment.Description?.Trim();
+
+        int targetFacultyId =
+            updatedDepartment.FacultyId ?? department.FacultyId;
+
+        if (!string.IsNullOrWhiteSpace(updatedDepartment.Code))
+        {
+            bool codeExists = await _context.Departments
+                .AnyAsync(d =>
+                    d.Code == updatedDepartment.Code &&
+                    d.Id != departmentId);
+
+            if (codeExists)
+                return DepartmentResult
+                    .DepartmentWithCodeAlreadyExists;
+        }
+
+        if (updatedDepartment.FacultyId.HasValue)
+        {
+            bool facultyExists = await _context.Faculties
+                .AnyAsync(f => f.Id == targetFacultyId);
+
+            if (!facultyExists)
+                return DepartmentResult.FacultyNotFound;
+        }
+
+        if (updatedDepartment.DepartmentHeadId.HasValue)
+        {
+            int departmentHeadId =
+                updatedDepartment.DepartmentHeadId.Value;
+
+            bool facultyMemberExists = await _context.FacultyMembers
+                .AnyAsync(fm => fm.Id == departmentHeadId);
+
+            if (!facultyMemberExists)
+                return DepartmentResult.FacultyMemberNotFound;
+
+            bool facultyMemberBelongsToFaculty =
+                await _context.FacultyMembers
+                    .AnyAsync(fm =>
+                        fm.Id == departmentHeadId &&
+                        fm.Department.FacultyId == targetFacultyId);
+
+            if (!facultyMemberBelongsToFaculty)
+                return DepartmentResult
+                    .FacultyMemberBelongsToAnotherFaculty;
+        }
+
+        if (!string.IsNullOrWhiteSpace(updatedDepartment.Name))
+            department.Name = updatedDepartment.Name;
+
+        if (!string.IsNullOrWhiteSpace(updatedDepartment.Code))
+            department.Code = updatedDepartment.Code;
+
+        if (updatedDepartment.FacultyId.HasValue)
+            department.FacultyId = targetFacultyId;
+
+        if (!string.IsNullOrWhiteSpace(updatedDepartment.Description))
+            department.Description = updatedDepartment.Description;
+
+        if (!string.IsNullOrWhiteSpace(updatedDepartment.Email))
+            department.Email = updatedDepartment.Email;
+
+        if (updatedDepartment.DepartmentHeadId.HasValue)
+            department.DepartmentHeadId =
+                updatedDepartment.DepartmentHeadId.Value;
+
+        if (updatedDepartment.IsActive.HasValue)
+            department.IsActive = updatedDepartment.IsActive.Value;
 
         await _context.SaveChangesAsync();
 
-        return department;
+        return DepartmentResult.Success;
     }
 
     public async Task<bool> DeleteAsync(int id)

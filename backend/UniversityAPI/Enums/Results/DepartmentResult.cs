@@ -1,5 +1,10 @@
 public enum DepartmentResult
 {
     Success,
-    DepartmentWithCodeAlreadyExists
+    DepartmentWithCodeAlreadyExists,
+    DepartmentWithEmailAlreadyExists,
+    DepartmentNotFound,
+    FacultyNotFound,
+    FacultyMemberNotFound,
+    FacultyMemberBelongsToAnotherFaculty
 }
