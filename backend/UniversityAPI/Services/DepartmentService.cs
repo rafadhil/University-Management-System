@@ -41,6 +41,9 @@ public class DepartmentService
     {
         department.Name = department.Name.Trim();
         department.Code = department.Code.Trim().ToUpperInvariant();
+        department.Email = string.IsNullOrWhiteSpace(department.Email)
+            ? null
+            : department.Email.Trim().ToLowerInvariant();
 
         bool codeExists = await _context.Departments
             .AnyAsync(d => d.Code == department.Code);
@@ -48,11 +51,41 @@ public class DepartmentService
         if (codeExists)
             return (DepartmentResult.DepartmentWithCodeAlreadyExists, null);
 
-        bool emailExists = await _context.Departments
-            .AnyAsync(d => d.Email == department.Email);
+        if (!string.IsNullOrWhiteSpace(department.Email))
+        {
+            bool emailExists = await _context.Departments
+                .AnyAsync(d => d.Email == department.Email);
 
-        if (emailExists)
-            return (DepartmentResult.DepartmentWithEmailAlreadyExists, null);
+            if (emailExists)
+                return (DepartmentResult.DepartmentWithEmailAlreadyExists, null);
+        }
+
+
+        bool facultyExists = await _context.Faculties
+            .AnyAsync(f => f.Id == department.FacultyId);
+
+        if (!facultyExists)
+            return (DepartmentResult.FacultyNotFound, null);
+
+        if (department.DepartmentHeadId.HasValue)
+        {
+            int departmentHeadId = department.DepartmentHeadId.Value;
+
+            bool departmentHeadExists = await _context.FacultyMembers
+                .AnyAsync(m => m.Id == departmentHeadId);
+
+            if (!departmentHeadExists)
+                return (DepartmentResult.FacultyMemberNotFound, null);
+
+            bool departmentHeadBelongsToFaculty =
+                await _context.FacultyMembers.AnyAsync(fm =>
+                    fm.Id == departmentHeadId &&
+                    fm.Department.FacultyId == department.FacultyId);
+
+            if (!departmentHeadBelongsToFaculty)
+                return (DepartmentResult.FacultyMemberBelongsToAnotherFaculty, null);
+        }
+
 
         _context.Departments.Add(department);
         await _context.SaveChangesAsync();
@@ -95,6 +128,18 @@ public class DepartmentService
             if (codeExists)
                 return DepartmentResult
                     .DepartmentWithCodeAlreadyExists;
+        }
+
+        if (!string.IsNullOrWhiteSpace(updatedDepartment.Email))
+        {
+            bool emailExists = await _context.Departments
+                .AnyAsync(d =>
+                    d.Email == updatedDepartment.Email &&
+                    d.Id != departmentId);
+
+            if (emailExists)
+                return DepartmentResult
+                    .DepartmentWithEmailAlreadyExists;
         }
 
         if (updatedDepartment.FacultyId.HasValue)
@@ -140,8 +185,10 @@ public class DepartmentService
         if (!string.IsNullOrWhiteSpace(updatedDepartment.Description))
             department.Description = updatedDepartment.Description;
 
-        if (!string.IsNullOrWhiteSpace(updatedDepartment.Email))
-            department.Email = updatedDepartment.Email;
+        if (updatedDepartment.Email is not null)
+            department.Email = string.IsNullOrWhiteSpace(updatedDepartment.Email)
+                ? null
+                : updatedDepartment.Email;
 
         if (updatedDepartment.DepartmentHeadId.HasValue)
             department.DepartmentHeadId =

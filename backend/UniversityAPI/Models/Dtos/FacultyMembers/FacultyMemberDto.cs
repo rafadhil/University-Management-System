@@ -9,9 +9,13 @@ public class FacultyMemberDto
     public string Email { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
 
+    public int FacultyId { get; set; }
+    public string Faculty { get; set; } = null!;
+
     public AcademicRank AcademicRank { get; set; }
     public FacultyMemberStatus Status { get; set; }
 
     public int DepartmentId { get; set; }
+    public string DepartmentName { get; set; } = null!;
     public int? UserId { get; set; }
 }

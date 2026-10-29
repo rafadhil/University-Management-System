@@ -29,10 +29,14 @@ public class FacultyMemberService
                 Email = f.Email,
                 PhoneNumber = f.PhoneNumber,
 
+                FacultyId = f.Department.FacultyId,
+                Faculty = f.Department.Faculty.Name,
+
                 AcademicRank = f.AcademicRank,
                 Status = f.Status,
 
                 DepartmentId = f.DepartmentId,
+                DepartmentName = f.Department.Name,
                 UserId = f.UserId
             })
             .Skip((pageNumber - 1) * pageSize)
@@ -56,10 +60,14 @@ public class FacultyMemberService
                 Email = f.Email,
                 PhoneNumber = f.PhoneNumber,
 
+                FacultyId = f.Department.FacultyId,
+                Faculty = f.Department.Faculty.Name,
+
                 AcademicRank = f.AcademicRank,
                 Status = f.Status,
 
                 DepartmentId = f.DepartmentId,
+                DepartmentName = f.Department.Name,
                 UserId = f.UserId
             })
             .FirstOrDefaultAsync();
@@ -81,10 +89,14 @@ public class FacultyMemberService
                 Email = f.Email,
                 PhoneNumber = f.PhoneNumber,
 
+                FacultyId = f.Department.FacultyId,
+                Faculty = f.Department.Faculty.Name,
+
                 AcademicRank = f.AcademicRank,
                 Status = f.Status,
 
                 DepartmentId = f.DepartmentId,
+                DepartmentName = f.Department.Name,
                 UserId = f.UserId
             })
             .FirstOrDefaultAsync();
@@ -106,10 +118,14 @@ public class FacultyMemberService
                 Email = f.Email,
                 PhoneNumber = f.PhoneNumber,
 
+                FacultyId = f.Department.FacultyId,
+                Faculty = f.Department.Faculty.Name,
+
                 AcademicRank = f.AcademicRank,
                 Status = f.Status,
 
                 DepartmentId = f.DepartmentId,
+                DepartmentName = f.Department.Name,
                 UserId = f.UserId
             })
             .FirstOrDefaultAsync();

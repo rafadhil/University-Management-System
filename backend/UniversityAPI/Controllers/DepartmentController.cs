@@ -5,7 +5,7 @@ using UniversityAPI.Models;
 namespace UniversityAPI.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/departments")]
 public class DepartmentsController : ControllerBase
 {
     private readonly DepartmentService _departmentService;
@@ -21,6 +21,9 @@ public class DepartmentsController : ControllerBase
     {
         var departments =
             await _departmentService.GetAllAsync(facultyId);
+
+        if (departments.Count == 0)
+            return NotFound();
 
         return Ok(departments.Select(ToResponseDto));
     }
@@ -52,8 +55,8 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<DepartmentResponseDto>>
-        Create(CreateDepartmentDto dto)
+    public async Task<ActionResult<DepartmentResponseDto>> Create(
+        CreateDepartmentDto dto)
     {
         var department = new Department
         {
@@ -83,6 +86,18 @@ public class DepartmentsController : ControllerBase
             {
                 message = "A department with this email already exists."
             });
+        }
+
+        if (result == DepartmentResult.FacultyNotFound)
+            return BadRequest("Faculty not found.");
+
+        if (result == DepartmentResult.FacultyMemberNotFound)
+            return BadRequest("Faculty member (Department Head) not found.");
+
+        if (result == DepartmentResult.FacultyMemberBelongsToAnotherFaculty)
+        {
+            return BadRequest(
+                "The department head must belong to the specified faculty.");
         }
 
         if (result != DepartmentResult.Success || id is null)
@@ -120,6 +135,12 @@ public class DepartmentsController : ControllerBase
                 Conflict(new
                 {
                     message = "A department with this code already exists."
+                }),
+
+            DepartmentResult.DepartmentWithEmailAlreadyExists =>
+                Conflict(new
+                {
+                    message = "A department with this email already exists."
                 }),
 
             DepartmentResult.FacultyNotFound =>
@@ -169,8 +190,13 @@ public class DepartmentsController : ControllerBase
             Name = department.Name,
             Code = department.Code,
             FacultyId = department.FacultyId,
+            FacultyName = department.Faculty.Name,
             Description = department.Description,
             DepartmentHeadId = department.DepartmentHeadId,
+            DepartmentHeadName =
+            department.DepartmentHead != null ?
+                $"{department.DepartmentHead.FirstName} {department.DepartmentHead.LastName}"
+                : null,
             Email = department.Email,
             IsActive = department.IsActive
         };
