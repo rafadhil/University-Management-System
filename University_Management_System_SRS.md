@@ -4,7 +4,7 @@
 
 The University Management System (UMS) is a web application that enables
 universities to manage students, instructors, departments, courses,
-enrollment, grades, attendance, tuition payments, announcements, and
+enrollment, grades, attendance, announcements, and
 administrative tasks from a centralized platform.
 
 The system should reduce paperwork while allowing different user roles
