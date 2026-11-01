@@ -1,8 +1,12 @@
-# University Management System
+# University Management System (UMS)
 
-A university management system built with **ASP.NET Core 8 Web API**, **Entity Framework Core**, and **Microsoft SQL Server** to manage university operations, including students, faculty, departments, and academic records.
+A comprehensive university management platform designed to centralize and streamline academic and administrative operations. The system aims to provide a unified environment for managing students, instructors, departments, courses, semesters, enrollment, grades, and other essential university services.
 
-<sub>**Project Status:** In Progress</sub>
+Built with **C#, ASP.NET Core 8 Web API, Entity Framework Core, and Microsoft SQL Server**, the project follows a layered architecture with an emphasis on maintainability, data integrity, and secure access control.
+
+**Project Status:** In Progress
+
+The system is being developed incrementally, with core university management modules implemented and additional academic and administrative features planned for future development.
 
 ## 1. Tech Stack
 
