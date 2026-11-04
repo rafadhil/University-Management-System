@@ -292,3 +292,4 @@
 /Users/rayan/Dev/University-Management-System/backend/UniversityAPI/obj/Debug/net8.0/UniversityAPI.pdb
 /Users/rayan/Dev/University-Management-System/backend/UniversityAPI/obj/Debug/net8.0/UniversityAPI.genruntimeconfig.cache
 /Users/rayan/Dev/University-Management-System/backend/UniversityAPI/obj/Debug/net8.0/ref/UniversityAPI.dll
+/Users/rayan/Dev/University-Management-System/backend/UniversityAPI/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
